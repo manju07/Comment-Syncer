@@ -10,13 +10,14 @@ app.controller('commentSync',['$scope','$http',function($scope,$http){
     $http({
                 method  : 'GET',
                 url     : __appurl + "comment/fetch",
+                data:{},
                 headers : { 'Content-Type': 'application/json' }  
+    }).then(function (success){
+      console.log("success"+JSON.stringify(success));
+      $scope.comment=success.comment;
+    },function (error){
+      console.log("error"+JSON.stringify(error));      
     });
-            // }).success(function(data) { 
-            	
-            //    $scope.comment = data.comment;
-            //    console.log("data.comment:"+data.comment);
-            // });
     
   }
   $scope.updateComment = function(req,res){
@@ -25,12 +26,13 @@ app.controller('commentSync',['$scope','$http',function($scope,$http){
     console.log($scope.comment);
     $http({
                 method  : 'POST',
-                url     : __appurl + "website/spacehistorydetails",
+                url     : __appurl + "comment/sync",
                 data    : {comment:$scope.comment},
                 headers : { 'Content-Type': 'application/json' }  
-            })
-            .success(function(data) { 
-              console.log(JSON.stringify(data));
+            }).then(function (success){
+              console.log("success:"+JSON.stringify(success));
+            },function (error){
+              console.log("error:"+error);
             });
     
   }
