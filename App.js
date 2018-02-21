@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 
 // render home page
-app.use("/",require("./App/Routes/RouterPages"));
+app.use("/",require("./App/Routes/webRouter"));
 
 var port=process.env.PORT || 8000;
 
