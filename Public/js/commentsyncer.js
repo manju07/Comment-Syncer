@@ -10,11 +10,11 @@ app.controller('commentSync',['$scope','$http',function($scope,$http){
     $http({
                 method  : 'GET',
                 url     : __appurl + "comment/fetch",
-                data:{},
+                data    :{},
                 headers : { 'Content-Type': 'application/json' }  
     }).then(function (success){
-      console.log("success"+JSON.stringify(success));
-      $scope.comment=success.comment;
+      console.log("success"+JSON.stringify(success.data.comment));
+      $scope.comment=success.data.comment;
     },function (error){
       console.log("error"+JSON.stringify(error));      
     });
