@@ -15,7 +15,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Modules
-let comment = require("./../Modules/commentModule");
+let comment = require("./../Modeles/commentModule");
 
 let webPagesCtrl = function () {
     this.sync = function (req, res) {
