@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" ng-app="app" ng-controller="commentSync" ng-init="fetchCommen();">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comment Syncer</title>
+
+<link rel="stylesheet" type="text/css" href="css/util.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!-- Include script files -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/designer/commentsyncer.js"></script>
+</head>
+<body>
+    <div class="container-contact100" style="background-image: url('img/bg-01.jpg');">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+				    <center> CommentSyncer</center>
+                </span> 
+                
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<textarea class="input100" rows="6" cols="200" ng-model="comment" ng-change="updateComment();" name="message" placeholder="Your comment here..."></textarea>
+				</div>
+			</form>
+		</div>
+</body>
+</html>
