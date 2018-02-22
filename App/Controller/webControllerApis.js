@@ -24,13 +24,17 @@ let synComment="";
 let fetchComment="";
 
 let webPagesCtrl = function () {
+
+    /**
+     * update comment in DB
+     */
     this.sync = function (req, res) {
-        let options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
         synComment=req.body.comment;
-        let result=dmp.diff_main(fetchComment, synComment) ;
-        dmp.diff_cleanupSemantic(result);
-        console.log("diff_main result:"+result);
-        comment.findOneAndUpdate({ name: "manju" }, { comment: req.body.comment }, options, function (err, result) {
+        let options = { upsert: true, new: true, setDefaultsOnInsert: true };
+        let patchResult=dmp.patch_apply(dmp.patch_make(fetchComment, synComment), fetchComment);
+        fetchComment=synComment;
+        comment.findOneAndUpdate({ name: "manju" }, { comment: patchResult[0]}, options, function (err, result) {
             if (err) {
                 res.send({ status: fail, message: "fail" });
                 res.end();
@@ -43,6 +47,9 @@ let webPagesCtrl = function () {
         })
     };
 
+     /**
+     * fetch comment from DB.
+     */
     this.fetch = function (req, res) {
         comment.find({ name: "manju" }, function (err, result) {
             if (err) {
