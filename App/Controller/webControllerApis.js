@@ -59,7 +59,6 @@ let webCtrl = function () {
                 res.end();
             }
             else {
-                console.log("result:"+JSON.stringify(result));
                 fetchComment=result.comment;
                 res.send({ status: true, "comment": result.comment });
                 res.end();
