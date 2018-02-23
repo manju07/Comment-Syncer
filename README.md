@@ -7,7 +7,7 @@ Steps to Setup and Run the App
 
 "npm i -g" 
 
-2] Start MongoDB and Create collection "addComments" in mongoDB.
+2] Start MongoDB.
 
 3]  Run the Application 
 
