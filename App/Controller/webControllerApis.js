@@ -17,13 +17,13 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// Modules
+// Modeles
 let comment = require("./../Modeles/commentModule");
 
 let synComment="";
 let fetchComment="";
 
-let webPagesCtrl = function () {
+let webCtrl = function () {
 
     /**
      * update comment in DB
@@ -51,15 +51,17 @@ let webPagesCtrl = function () {
      * fetch comment from DB.
      */
     this.fetch = function (req, res) {
-        comment.find({ name: "manju" }, function (err, result) {
+        let options = { upsert: true, new: true, setDefaultsOnInsert: true };
+        comment.findOneAndUpdate({ name: "manju" }, { comment:"",name:"manju"}, options, function (err, result) {
             if (err) {
                 
                 res.send({ status: fail, result: "fail" });
                 res.end();
             }
             else {
-                fetchComment=result[0].comment;
-                res.send({ status: true, "comment": result[0].comment });
+                console.log("result:"+JSON.stringify(result));
+                fetchComment=result.comment;
+                res.send({ status: true, "comment": result.comment });
                 res.end();
             }
         });
@@ -67,4 +69,4 @@ let webPagesCtrl = function () {
     }
 }
 
-module.exports = new webPagesCtrl();
+module.exports = new webCtrl();
