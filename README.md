@@ -2,6 +2,7 @@
 sync comment and update on mongodb.
 
 Steps to Setup and Run the App
+
 1] Install All packages. 
 
 "npm i -g" 
