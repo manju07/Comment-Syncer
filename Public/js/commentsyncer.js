@@ -41,21 +41,21 @@ app.controller('commentSync', ['$scope', '$http', function ($scope, $http) {
 
     console.log("diff_main result:" + result);
 
-    let tempComment = "";
-    for (let i = 0; i < result.length; i++) {
-      if (result[i][0] >= 0) {
-        tempComment += result[i][1];
-      }
-    }
-    console.log("tempComment:" + tempComment);
+    // let tempComment = "";
+    // for (let i = 0; i < result.length; i++) {
+    //   if (result[i][0] > 0) {
+    //     tempComment += result[i][1];
+    //   }
+    // }
+    // console.log("tempComment:" + tempComment);
 
     $http({
       method: 'POST',
       url: __appurl + "comment/sync",
-      data: { comment: tempComment },
+      data: { comment: result },
       headers: { 'Content-Type': 'application/json' }
     }).then(function (success) {
-      fetchComment = tempComment;
+      fetchComment = $scope.comment;
       console.log("success:" + JSON.stringify(success));
     }, function (error) {
       console.log("error:" + error);

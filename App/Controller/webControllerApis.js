@@ -32,11 +32,15 @@ let webCtrl = function () {
      */
     this.sync = function (req, res) {
 
-        synComment=req.body.comment;
+
         let options = { upsert: true, new: true, setDefaultsOnInsert: true };
-        // let patchResult=dmp.patch_apply(dmp.patch_make(fetchComment, synComment), fetchComment);
-        fetchComment=synComment;
-        comment.findOneAndUpdate({ name: "manju" }, { comment: fetchComment}, options, function (err, result) {
+
+        let patchResult=dmp.patch_apply(dmp.patch_make(req.body.comment),fetchComment);
+        console.log("patch_make:"+dmp.patch_make(req.body.comment))
+        console.log("patchResult result:" + patchResult[0]);
+        synComment=patchResult[0];    
+        fetchComment=patchResult[0];
+        comment.findOneAndUpdate({ name: "manju" }, { comment: patchResult[0]}, options, function (err, result) {
             if (err) {
                 res.send({ status: fail, message: "fail" });
                 res.end();
@@ -62,7 +66,7 @@ let webCtrl = function () {
             }
             else {
                 console.log("result:"+result);       
-                // console.log("result[comment]:"+result["comment"]);    
+
 
                 if(result==null)
                 {
