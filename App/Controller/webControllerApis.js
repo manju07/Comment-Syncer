@@ -23,6 +23,8 @@ let comment = require("./../Modeles/commentModule");
 let synComment="";
 let fetchComment="";
 
+let flag=0;
+
 let webCtrl = function () {
 
     /**
@@ -32,9 +34,9 @@ let webCtrl = function () {
 
         synComment=req.body.comment;
         let options = { upsert: true, new: true, setDefaultsOnInsert: true };
-        let patchResult=dmp.patch_apply(dmp.patch_make(fetchComment, synComment), fetchComment);
+        // let patchResult=dmp.patch_apply(dmp.patch_make(fetchComment, synComment), fetchComment);
         fetchComment=synComment;
-        comment.findOneAndUpdate({ name: "manju" }, { comment: patchResult[0]}, options, function (err, result) {
+        comment.findOneAndUpdate({ name: "manju" }, { comment: fetchComment}, options, function (err, result) {
             if (err) {
                 res.send({ status: fail, message: "fail" });
                 res.end();
@@ -46,22 +48,47 @@ let webCtrl = function () {
 
         })
     };
-
      /**
      * fetch comment from DB.
      */
     this.fetch = function (req, res) {
-        let options = { upsert: true, new: true, setDefaultsOnInsert: true };
-        comment.findOneAndUpdate({ name: "manju" }, { comment:"",name:"manju"}, options, function (err, result) {
+
+
+        comment.findOne({ name: "manju" }, function (err, result) {
             if (err) {
-                
+                console.log("err:"+err);
                 res.send({ status: fail, result: "fail" });
                 res.end();
             }
             else {
-                fetchComment=result.comment;
-                res.send({ status: true, "comment": result.comment });
-                res.end();
+                console.log("result:"+result);       
+                // console.log("result[comment]:"+result["comment"]);    
+
+                if(result==null)
+                {
+                    let document=new comment({ name: "manju",comment:"" });
+
+                    document.save((function (err) {
+                        if (err){
+                            console.log("error while creating document:"+err);
+                        }
+                        else
+                        {
+                            console.log("Created document");
+                            res.send({ status: true, "comment": ""});
+                            res.end();
+                        }
+                        // saved!
+                    })
+                    );
+      
+                }
+                else {   
+                    fetchComment=result["comment"];
+                    res.send({ status: true, "comment": result.comment });
+                    res.end();
+                }
+
             }
         });
 

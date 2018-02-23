@@ -26,6 +26,16 @@ app.controller('commentSync', ['$scope', '$http', function ($scope, $http) {
     console.log("calling update comment method");
 
     var dmp = new diff_match_patch();
+    
+    if(fetchComment==null)
+    {
+      fetchComment="";
+    }
+    if(SyncComment==null)
+    {
+      SyncComment="";
+    }
+
     let result = dmp.diff_main(fetchComment, SyncComment);
     dmp.diff_cleanupSemantic(result);
 
