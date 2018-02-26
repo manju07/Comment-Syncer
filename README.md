@@ -7,9 +7,7 @@ Steps to Setup and Run the App
 
 "npm i -g" 
 
-2] Start MongoDB.
-
-3]  Run the Application 
+2] Run the Application 
 
 "npm start"
 

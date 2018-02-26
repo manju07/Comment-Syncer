@@ -4,7 +4,9 @@ var dmp = new DiffMatchPatch();
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/commentSyncer';
+// var mongoDB = 'mongodb://127.0.0.1/commentSyncer';
+
+var mongoDB ="mongodb://m:m@ds249418.mlab.com:49418/profile-data";
 
 mongoose.connect(mongoDB);
 
