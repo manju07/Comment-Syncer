@@ -1,2 +1,2 @@
 var app = angular.module('app',[]);
-var __appurl = "http://sleepy-depths-38567.herokuapp.com/"
+var __appurl = "http://localhost:8000/"
